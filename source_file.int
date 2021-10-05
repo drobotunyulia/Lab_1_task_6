@@ -1,0 +1,14 @@
+A:=\B;
+read(B, 16);
+read(C, 16);
+A:=B+C;
+write(A, 16);
+write(B, 16);
+write(C, 16);
+A:=B<>C;
+write(A, 16);
+B:=D->E;
+read(D, 16);
+write(D, 9);
+
+
