@@ -3,7 +3,7 @@
 #include <map>
 #include <vector>
 #include <cstdint>
-#include <regex>//библиотека для работы с регулярными выражениями
+#include <regex>//ГЎГЁГЎГ«ГЁГ®ГІГҐГЄГ  Г¤Г«Гї Г°Г ГЎГ®ГІГ» Г± Г°ГҐГЈГіГ«ГїГ°Г­Г»Г¬ГЁ ГўГ»Г°Г Г¦ГҐГ­ГЁГїГ¬ГЁ
 #include <algorithm>
 #include <string>
 
@@ -82,13 +82,26 @@ int main(int argc, char* argv[])
     opcode["&"] = AND_NOT;
     opcode["!"] = OR_NOT;
 
-    if (string(argv[2]) == "/trace")
+   if (argc < 2)
     {
-        is_trace = true;
-        output_file.open(argv[3]);
-        if (!output_file)
+        cout << "Invalid source filename" << endl;
+        return FILE_ERROR;
+    }
+    if (argc > 2)
+    {
+        if (string(argv[2]) == "/trace")
         {
-            cout << "Trace file open error..." << endl;
+            if (argc < 4)
+            {
+                cout << "Invalid trace filename" << endl;
+                return FILE_ERROR;
+            }
+            is_trace = true;
+            output_file.open(argv[3]);
+            if (!output_file)
+            {
+                cout << "Trace file open error..." << endl;
+            }
         }
     }
 
@@ -129,7 +142,7 @@ int main(int argc, char* argv[])
         }
         if (input_byte == '\n')
         {
-            if (!code_line.empty() && code_line[0] != 10 && code_line[0] != 13)//коды перевод строки и конец строки
+            if (!code_line.empty() && code_line[0] != 10 && code_line[0] != 13)//ГЄГ®Г¤Г» ГЇГҐГ°ГҐГўГ®Г¤ Г±ГІГ°Г®ГЄГЁ ГЁ ГЄГ®Г­ГҐГ¶ Г±ГІГ°Г®ГЄГЁ
             {
                 source_text.push_back(code_line);
             }
@@ -256,7 +269,7 @@ int execute(token_struct_t& token_struct, map<string, int>& value_array,
             bool trace_flag, ofstream &output_file, size_t instruction_num)
 {
     string input_str;
-    regex pattern_value("[a-zA-Z0-9]+");//шаблон для проверки корректности ввода символов в операции read
+    regex pattern_value("[a-zA-Z0-9]+");//ГёГ ГЎГ«Г®Г­ Г¤Г«Гї ГЇГ°Г®ГўГҐГ°ГЄГЁ ГЄГ®Г°Г°ГҐГЄГІГ­Г®Г±ГІГЁ ГўГўГ®Г¤Г  Г±ГЁГ¬ГўГ®Г«Г®Гў Гў Г®ГЇГҐГ°Г Г¶ГЁГЁ read
     switch (token_struct.operation) {
     case OR:
         value_array[token_struct.result] = value_array[token_struct.operand_1] | value_array[token_struct.operand_2];
